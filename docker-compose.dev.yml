@@ -1,0 +1,29 @@
+version: '3' 
+services:
+  api-server:
+    image: api-server
+    env_file: ./src/config/dev.env
+    ports:
+      - "5000:5000"
+    networks:
+      - main-app
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:4.4-bionic
+    ports:
+      - "27017:27017"
+    networks:
+      - main-app
+    volumes:
+      - mongo-data:/data/db
+networks:
+  main-app:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local
+  
