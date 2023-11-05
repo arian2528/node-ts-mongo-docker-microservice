@@ -1,8 +1,8 @@
 build-dev:
-	docker build -t api-server .
+	docker build --no-cache --pull -t api-server .
 
 run-dev:
 	docker-compose -f docker-compose.dev.yml up
 
 stop:
-	docker-compose down
+	docker-compose down .
