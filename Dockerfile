@@ -25,7 +25,7 @@ RUN chown -R node:node /usr/src/app
 #Multi-stage Dockerfile for testing
 # https://docs.docker.com/language/nodejs/run-tests/
 
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "dev" ]
 
 # new from https://ncoughlin.com/posts/aws-codepipeline-dockerized-react-s3/
 USER node
