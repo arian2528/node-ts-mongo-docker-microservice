@@ -13,6 +13,8 @@ export default async function createServer() {
         res.send("Hello from express");
     });
 
+    app.use('/api', require('../routes/report-route'));
+
     return app;
 }
 
