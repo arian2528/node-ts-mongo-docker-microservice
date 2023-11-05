@@ -1,24 +1,13 @@
-import * as express from 'express'
-import {Request, Response} from 'express'
-import { connectToDb } from './utils/db'
-import * as cors from 'cors'
+import createServer from "./server/server";
 
+async function startServer() {
+    const app = await createServer();
 
-async function main() {
-    await connectToDb();
+    const port: number = parseInt(<string>process.env.PORT, 10) || 5000;
     
-    const app = express()
-    app.listen(5000)
-    console.log('Listening to port: 5000')
-
-    app.use(cors())
-    app.use(express.json())
-
-    app.get('/', (req: Request, res: Response) => {
-        res.send('Hello from express')
-    })
+    app.listen(port, () => {
+        console.log(`Server running on port ${port}`);
+    });
 }
 
-main();
-
-
+startServer();
