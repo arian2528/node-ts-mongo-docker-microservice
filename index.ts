@@ -1,4 +1,4 @@
-import createServer from "./server/server";
+import createServer from "./src/server/server";
 
 async function startServer() {
     const app = await createServer();

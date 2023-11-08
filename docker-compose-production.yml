@@ -1,0 +1,16 @@
+version: "3"
+services:
+  api-server:
+    image: api-server
+    restart: unless-stopped
+    env_file: ./src/config/production.env
+    ports:
+      - "5000:5000"
+    networks:
+      - main-app
+networks:
+  main-app:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local

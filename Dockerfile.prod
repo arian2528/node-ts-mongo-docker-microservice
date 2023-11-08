@@ -1,0 +1,25 @@
+FROM node:alpine as base
+
+WORKDIR /app
+
+COPY package*.json ./
+
+# make node modules folder
+RUN mkdir -p /app/node_modules
+# recursive ownership for user node on all files in app
+RUN chown -R node:node /app
+
+RUN npm install yarn
+
+RUN yarn
+
+FROM base
+RUN yarn
+COPY . .
+
+# RUN CI=true npm test
+RUN yarn build
+
+RUN chown -R node:node /app
+
+USER node

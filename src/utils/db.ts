@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export async function connectToDb() {
+export async function connectToDb(): Promise<void> {
   const MONGO_URL =
     process.env.MONGO_URL || "mongodb://mongo:27017/default-db";
     console.log('MONGO_URL: ', MONGO_URL);
