@@ -1,0 +1,28 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      docker: 19
+
+    commands:
+      # log in to docker account to prevent rate limiting
+      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      # build the Docker image for the application
+      - docker build -t node-ts-api-docker-aws-codepipeline:latest -f Dockerfile.prod .
+
+  build:
+    commands:
+      # run container from built image (builds production files)
+      - docker run -e DB_USER=$DB_USER DB_PASS=$DB_PASS DB_DOMAIN=$DB_DOMAIN  node-ts-api-docker-aws-codepipeline:latest
+      # set container id to variable
+      - CONTAINER=$(docker ps -alq)
+      # copy build files from container to host
+      - docker cp $CONTAINER:/app/build/ $CODEBUILD_SRC_DIR/build
+
+artifacts:
+  # include all files required to run application
+  # we include only the static build files
+  files:
+    - "**/*"
+  base-directory: "build"
