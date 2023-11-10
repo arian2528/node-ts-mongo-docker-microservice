@@ -1,25 +1,18 @@
-FROM node:alpine as base
+FROM node:alpine as builder
+ENV NODE_ENV=production \
+    PORT=8080
+
+EXPOSE 8080 80
 
 WORKDIR /app
-
-COPY package*.json ./
-
-# make node modules folder
-RUN mkdir -p /app/node_modules
-# recursive ownership for user node on all files in app
-RUN chown -R node:node /app
-
-RUN npm install yarn
-
-RUN yarn
-
-FROM base
-RUN yarn
 COPY . .
-
-# RUN CI=true npm test
+RUN yarn install
 RUN yarn build
 
-RUN chown -R node:node /app
-
-USER node
+FROM node:alpine as final
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY package.json .
+COPY yarn.lock .
+RUN yarn install --production
+CMD ["node", "dist/index.js"]

@@ -1,11 +1,9 @@
-import mongoose from "mongoose";
+import connectToMongoDb from "./mongo-connection";
 
 export async function connectToDb(): Promise<void> {
-  const MONGO_URL =
-    process.env.MONGO_URL || "mongodb://mongo:27017/default-db";
-    console.log('MONGO_URL: ', MONGO_URL);
+
   try {
-    await mongoose.connect(MONGO_URL);
+    await connectToMongoDb("mongoose");
   } catch (e) {
     console.error(e);
     process.exit(1);

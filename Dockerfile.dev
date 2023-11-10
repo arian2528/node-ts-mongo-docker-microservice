@@ -15,7 +15,7 @@ RUN yarn
 
 COPY . .
 
-EXPOSE 5000
+EXPOSE 5050
 
 # I do it again so it also takes the new files created  after installing
 # recursive ownership for user node on all files in app

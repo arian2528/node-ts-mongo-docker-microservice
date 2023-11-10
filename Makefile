@@ -1,8 +1,8 @@
 build-dev:
-	docker build -f Dockerfile.dev --no-cache --pull -t api-server .
+	docker build -f Dockerfile.dev --no-cache --pull -t api-server-dev .
 
 run-dev:
-	docker-compose -f docker-compose.dev.yml up
+	docker-compose -f docker-compose-dev.yml up
 
 build-local:
 	docker build -f Dockerfile.dev --no-cache --pull -t api-server .

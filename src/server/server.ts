@@ -1,5 +1,5 @@
-import * as cors from "cors";
-import * as express from "express";
+import cors from "cors";
+import express from "express";
 import { connectToDb } from '../utils/db'
 
 export default async function createServer() {
@@ -10,7 +10,7 @@ export default async function createServer() {
     app.use(express.json())
 
     app.get("/", (req: express.Request, res: express.Response) => {
-        res.send("Hello from express");
+        res.send("Hello from express arian");
     });
 
     return app;
