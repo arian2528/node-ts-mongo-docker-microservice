@@ -14,7 +14,7 @@ build-production:
 	docker build -f Dockerfile.prod --no-cache --pull -t api-server .
 
 run-production:
-	ENV=production docker-compose -f docker-compose-production.yml up
+	docker run -e DB_USER=arian2528 -e DB_PASS=Juve@2019 -e DB_DOMAIN=cluster0.tuzgjur.mongodb.net api-server -p 5000:80
 
 stop:
 	docker-compose down .
