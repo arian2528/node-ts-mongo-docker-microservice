@@ -14,7 +14,7 @@ phases:
   build:
     commands:
       # run container from built image (builds production files)
-      - docker run -e DB_USER=$DB_USER DB_PASS=$DB_PASS DB_DOMAIN=$DB_DOMAIN node-ts-api-docker-aws-codepipeline:latest
+      - docker run -e DB_USER=arian2528 -e DB_PASS=Juve@2019 -e DB_DOMAIN=cluster0.tuzgjur.mongodb.net -p 5000:80 node-ts-api-docker-aws-codepipeline:latest
       # set container id to variable
       - CONTAINER=$(docker ps -alq)
       # list files in container
