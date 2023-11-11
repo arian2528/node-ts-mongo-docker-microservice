@@ -14,11 +14,15 @@ phases:
   build:
     commands:
       # run container from built image (builds production files)
-      - docker run -e DB_USER=$DB_USER DB_PASS=$DB_PASS DB_DOMAIN=$DB_DOMAIN  node-ts-api-docker-aws-codepipeline:latest
+      - docker run -e DB_USER=$DB_USER DB_PASS=$DB_PASS DB_DOMAIN=$DB_DOMAIN node-ts-api-docker-aws-codepipeline:latest
       # set container id to variable
       - CONTAINER=$(docker ps -alq)
+      # list files in container
+      - echo ls $CONTAINER:app -all
+      # list files in host
+      - echo ls $CODEBUILD_SRC_DIR -all
       # copy build files from container to host
-      - docker cp $CONTAINER:/app/dist/ $CODEBUILD_SRC_DIR/dist
+      - docker cp $CONTAINER:/app/dist $CODEBUILD_SRC_DIR/dist
 
 artifacts:
   # include all files required to run application
