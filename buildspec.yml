@@ -18,11 +18,11 @@ phases:
       # set container id to variable
       - CONTAINER=$(docker ps -alq)
       # copy build files from container to host
-      - docker cp $CONTAINER:/app/build/ $CODEBUILD_SRC_DIR/build
+      - docker cp $CONTAINER:/app/dist/ $CODEBUILD_SRC_DIR/dist
 
 artifacts:
   # include all files required to run application
   # we include only the static build files
   files:
     - "**/*"
-  base-directory: "build"
+  base-directory: "dist"
